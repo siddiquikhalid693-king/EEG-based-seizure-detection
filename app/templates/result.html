@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero compact">
+        <div>
+          <p class="eyebrow">{{ source_filename }}</p>
+          <h1>{{ result.label_name | upper }}</h1>
+          <p class="lede">Confidence {{ "%.2f"|format(result.confidence * 100) }}% at threshold {{ "%.2f"|format(result.threshold) }}.</p>
+        </div>
+        <a class="button-link" href="{{ url_for('report', report_name=report_name) }}">Download PDF</a>
+      </section>
+      <section class="panel">
+        <dl class="metrics">
+          <div>
+            <dt>Positive class</dt>
+            <dd>ictal/seizure</dd>
+          </div>
+          <div>
+            <dt>Prediction</dt>
+            <dd>{{ result.label_name }}</dd>
+          </div>
+          <div>
+            <dt>Confidence</dt>
+            <dd>{{ "%.2f"|format(result.confidence * 100) }}%</dd>
+          </div>
+        </dl>
+        <a href="{{ url_for('index') }}">Analyze another file</a>
+      </section>
+    </main>
+  </body>
+</html>
